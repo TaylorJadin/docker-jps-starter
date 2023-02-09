@@ -16,7 +16,7 @@ services:
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
 
   nginx-proxy:
-    build: ./nginx.dockerfile
+    build: nginx.dockerfile
     ports:
       - "80:80"
       - "443:443"
