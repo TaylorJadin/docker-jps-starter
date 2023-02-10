@@ -6,6 +6,8 @@ services:
     image: httpd
     environment:
       VIRTUAL_HOST: ${DOMAIN}
+      LETSENCRYPT_HOST: ${DOMAIN}
+      LETSENCRYPT_EMAIL: ${EMAIL}
 
   nginx-proxy:
     build: 
