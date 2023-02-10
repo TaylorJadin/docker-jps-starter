@@ -13,7 +13,7 @@ services:
       # LETSENCRYPT_HOST: ${DOMAIN}
       # LETSENCRYPT_EMAIL: ${EMAIL}
     volumes:
-      - ./wordpress:/var/www/html  
+      - ./wordpress:/var/www/html
 
   db:
     image: mariadb
@@ -23,7 +23,7 @@ services:
       MYSQL_PASSWORD: ${DB_PASSWORD}
       MYSQL_RANDOM_ROOT_PASSWORD: '1'
     volumes:
-      - ./db:/var/lib/mysql  
+      - ./db:/var/lib/mysql
 
   nginx-proxy:
     build: 
