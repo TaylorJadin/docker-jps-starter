@@ -46,8 +46,9 @@ actions:
     - cmd[cp]: |-
         mkdir -p /root/docker-jps-starter
         cd /root/docker-jps-starter
-        wget https://raw.githubusercontent.com/TaylorJadin/docker-jps-starter/main/docker-compose.yml
-        wget https://raw.githubusercontent.com/TaylorJadin/docker-jps-starter/main/.env
+        git clone https://github.com/taylorjadin/docker-jps-starter --depth 1 .
+        rm -rf .git
+        rm manifest.yaml
         sed -i \
         -e "s|DOMAIN=|DOMAIN=${env.domain}|" \
         -e "s|EMAIL=|EMAIL=${user.email}|" \
