@@ -4,15 +4,18 @@ services:
 
   apache:
     image: httpd
+    container_name: apache 
     environment:
       VIRTUAL_HOST: ${DOMAIN}
       LETSENCRYPT_HOST: ${DOMAIN}
       LETSENCRYPT_EMAIL: ${EMAIL}
+    restart: unless-stopped
 
   nginx-proxy:
     build: 
       context: .
       dockerfile: nginx.dockerfile
+    container_name: nginx-proxy 
     ports:
       - "80:80"
       - "443:443"
@@ -20,15 +23,20 @@ services:
       - vhost:/etc/nginx/vhost.d
       - nginx-html:/usr/share/nginx/html
       - certs:/etc/nginx/certs
-      - "/var/run/docker.sock:/tmp/docker.sock:ro" 
+      - "/var/run/docker.sock:/tmp/docker.sock:ro"
+    labels:
+      com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy: ""
+    restart: unless-stopped
 
-  nginx-acme:
+  letsencrypt:
     image: nginxproxy/acme-companion
+    container_name: letsencrypt 
     volumes:
       - vhost:/etc/nginx/vhost.d
       - nginx-html:/usr/share/nginx/html
       - certs:/etc/nginx/certs 
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
+    restart: unless-stopped
 
 volumes: 
   vhost:
