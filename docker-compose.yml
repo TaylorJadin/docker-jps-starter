@@ -10,14 +10,15 @@ services:
       # LETSENCRYPT_HOST: ${DOMAIN}
       # LETSENCRYPT_EMAIL: ${EMAIL}
 
-  mysql:
+  db:
     image: mariadb
     environment:
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
 
   nginx-proxy:
     build: 
-      Dockerfile: nginx.dockerfile
+      context: .
+      dockerfile: nginx.dockerfile
     ports:
       - "80:80"
       - "443:443"
