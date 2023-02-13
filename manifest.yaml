@@ -6,13 +6,15 @@ name: Docker JPS Starter
 baseUrl: https://raw.githubusercontent.com/TaylorJadin/docker-jps-starter/main
 logo: /logo.png
 homepage: https://github.com/taylorjadin/docker-jps-starter
-
 categories: 
 - apps/education
-
 description: 
   text: "A sentence or two long description should go here."
   short: "A short description."
+
+globals:
+  path: /root/starter-app
+  repo: https://github.com/taylorjadin/docker-jps-starter
 
 nodes:
   nodeType: dockerengine
@@ -22,7 +24,7 @@ nodes:
   extip: true
   displayName: AppServer
   addons: [change-domain, update]
-  volumes: ["/root/docker-jps-starter"]
+  volumes: ["${globals.path}"]
 
 settings:
   domain:
@@ -44,9 +46,9 @@ onInstall:
 actions:
   setup:      
     - cmd[cp]: |-
-        mkdir -p /root/docker-jps-starter
-        cd /root/docker-jps-starter
-        git clone https://github.com/taylorjadin/docker-jps-starter --depth 1 .
+        mkdir -p ${globals.path}
+        cd ${globals.path}
+        git clone ${globals.repo} --depth 1 .
         rm -rf .git
         rm manifest.yaml
         sed -i \
@@ -56,8 +58,8 @@ actions:
         docker-compose up -d
     - env.file.AddFavorite:
         nodeGroup: cp
-        path: /root/docker-jps-starter
-        keyword: docker-jps-starter
+        path: ${globals.path}
+        keyword: ${env.appid}
 
 addons:
   - id: change-domain
@@ -76,7 +78,7 @@ addons:
     actions:
       changeDomain:
         - cmd[cp]: |-
-            cd /root/docker-jps-starter
+            cd ${globals.path}
             sed -i \
             -e "s|DOMAIN=.*|DOMAIN=${settings.domain}|" \
             .env
@@ -96,10 +98,10 @@ addons:
     actions:
       pullContainers:
         -  cmd[cp]: |-
-            cd /root/docker-jps-starter
+            cd ${globals.path}
             docker-compose pull
             docker-compose down
             docker-compose up -d --force-recreate
 success: | 
-  **Docker JPS Starter**: [https://${env.domain}/](https://${env.domain}/)
+  **${env.displayName}**: [https://${env.domain}/](https://${env.domain}/)
   - If you want to map a custom domain, point an A record at **${nodes.cp.extIPs}** then use the **Domain Configuration** Add-On to change the domain name and issue a new Let's Encrypt cert.
