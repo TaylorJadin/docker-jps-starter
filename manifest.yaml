@@ -3,9 +3,8 @@ id: docker-jps-starter
 version: '1.0'
 appVersion: latest
 name: Docker JPS Starter
-baseUrl: https://raw.githubusercontent.com/TaylorJadin/docker-jps-starter/main
-logo: /logo.png
-homepage: https://github.com/taylorjadin/docker-jps-starter
+logo: https://reclaimcloud-reclm.cdn.jelastic.net/wp-content/uploads/2020/06/cropped-Reclaim-Cloud-Logo-New.png
+homepage: https://reclaim.cloud
 categories: 
 - apps/education
 description: 
