@@ -12,6 +12,7 @@ description:
   short: "A short description."
 
 globals:
+  shortname: starter-app
   path: /root/starter-app
   repo: https://github.com/taylorjadin/docker-jps-starter
 
