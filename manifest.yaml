@@ -59,7 +59,7 @@ actions:
     - env.file.AddFavorite:
         nodeGroup: cp
         path: ${globals.path}
-        keyword: ${env.appid}
+        keyword: ${globals.shortname}
 
 addons:
   - id: change-domain
