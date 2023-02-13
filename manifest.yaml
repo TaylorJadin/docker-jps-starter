@@ -52,8 +52,8 @@ actions:
         rm -rf .git
         rm manifest.yaml
         sed -i \
-        -e "s|DOMAIN=|DOMAIN=${env.domain}|" \
-        -e "s|EMAIL=|EMAIL=${user.email}|" \
+        -e "s|DOMAIN=.*|DOMAIN=${env.domain}|" \
+        -e "s|EMAIL=.*|EMAIL=${user.email}|" \
         .env
         docker-compose up -d
     - env.file.AddFavorite:
